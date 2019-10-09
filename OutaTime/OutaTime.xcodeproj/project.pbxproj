@@ -18,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		BA24E5F6234D80DB0092DE22 /* digital-7.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "digital-7.ttf"; path = "digital-7.dataset/digital-7.ttf"; sourceTree = "<group>"; };
 		BA82A1DC234D6C680057B288 /* OutaTime.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OutaTime.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA82A1DF234D6C680057B288 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BA82A1E1234D6C680057B288 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -68,6 +69,7 @@
 				BA82A1E8234D6C6C0057B288 /* Assets.xcassets */,
 				BA82A1EA234D6C6C0057B288 /* LaunchScreen.storyboard */,
 				BA82A1ED234D6C6C0057B288 /* Info.plist */,
+				BA24E5F6234D80DB0092DE22 /* digital-7.ttf */,
 			);
 			path = OutaTime;
 			sourceTree = "<group>";
