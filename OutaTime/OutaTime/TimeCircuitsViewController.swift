@@ -19,7 +19,7 @@ class TimeCircuitsViewController: UIViewController {
     // MARK: - Properties
     var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
-        formatter.dateFormat = "MMM dd   yyyy"
+        formatter.dateFormat = "MMM dd yyyy"
         return formatter
     }()
     
