@@ -25,45 +25,41 @@ class TimeCircuitsViewController: UIViewController {
     
     var currentSpeed = 0
     let today = Date()
-    var destinationDate: Date = Date()
     var timer: Timer?
- 
-        
     
-    // MARK: - Functions
+    // MARK: - View
     override func viewDidLoad() {
         super.viewDidLoad()
         updateViews()
     }
     
-    
-    @IBAction func travelBackButton(_ sender: UIButton) {
-        startTimer()
-    }
-    
-    private func updateViews() {
+        private func updateViews() {
         let todayString = string(from: today)
-        let destinationString = string(from: destinationDate)
         
         presentTimeLabel.text = todayString
         speedLabel.text = "\(currentSpeed) MPH"
         lastTimeDepartedLabel.text = "---   --   ----"
-        
-        
-        
     }
     
+    // MARK: - IBActions
+    @IBAction func travelBackButton(_ sender: UIButton) {
+        startTimer()
+    }
+    
+    // MARK: - Methods
+    // Formats date into string for buttons.
     private func string(from date: Date) -> String {
         return dateFormatter.string(for: date)!
-
     }
  
+    // Starts timer for updating Speed Label
     func startTimer() {
         timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { (timer) in
             self.updateSpeed()
         }
     }
     
+    // Updates Speed Label
     func updateSpeed() {
         speedLabel.text = "\(currentSpeed) MPH"
         if currentSpeed < 88 {
@@ -73,7 +69,7 @@ class TimeCircuitsViewController: UIViewController {
             lastTimeDepartedLabel.text = presentTimeLabel.text
             presentTimeLabel.text = destinationTimeLabel.text
             
-            let alert = UIAlertController(title: "Time Travel Successful!", message: "It is now \(presentTimeLabel.text)" ?? "You didn't quite make it...", preferredStyle: .alert)
+            let alert = UIAlertController(title: "Time Travel Successful!", message: "It is now \(presentTimeLabel.text ?? "time to figure out what went wrong.")", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
             self.present(alert, animated: true)
             currentSpeed = 0
@@ -81,8 +77,6 @@ class TimeCircuitsViewController: UIViewController {
     }
     
     // MARK: Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
        if segue.identifier == "modalDestinationDatePickerSegue" {
         guard let vc = segue.destination as? DatePickerViewController else { return }
@@ -92,12 +86,11 @@ class TimeCircuitsViewController: UIViewController {
 }
 
 // MARK: - Extensions
+// Updates Destination Time Label to date chosen in Date Picker VC
 extension TimeCircuitsViewController: DatePickerDelegate {
     func destinationDateWasChosen(date: Date) {
         destinationTimeLabel.text = dateFormatter.string(from: date)
     }
-    
-    
 }
 
 
