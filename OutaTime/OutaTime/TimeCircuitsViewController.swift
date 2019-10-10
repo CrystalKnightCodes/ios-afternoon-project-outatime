@@ -26,6 +26,7 @@ class TimeCircuitsViewController: UIViewController {
     var currentSpeed = 0
     let today = Date()
     var destinationDate: Date = Date()
+    var timer: Timer?
  
         
     
@@ -33,11 +34,11 @@ class TimeCircuitsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         updateViews()
-        // Do any additional setup after loading the view.
     }
     
     
     @IBAction func travelBackButton(_ sender: UIButton) {
+        startTimer()
     }
     
     private func updateViews() {
@@ -47,7 +48,7 @@ class TimeCircuitsViewController: UIViewController {
         presentTimeLabel.text = todayString
         speedLabel.text = "\(currentSpeed) MPH"
         lastTimeDepartedLabel.text = "---   --   ----"
-        destinationTimeLabel.text = destinationString
+        
         
         
     }
@@ -57,7 +58,27 @@ class TimeCircuitsViewController: UIViewController {
 
     }
  
+    func startTimer() {
+        timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { (timer) in
+            self.updateSpeed()
+        }
+    }
     
+    func updateSpeed() {
+        speedLabel.text = "\(currentSpeed) MPH"
+        if currentSpeed < 88 {
+            currentSpeed += 1
+        } else {
+            timer?.invalidate()
+            lastTimeDepartedLabel.text = presentTimeLabel.text
+            presentTimeLabel.text = destinationTimeLabel.text
+            
+            let alert = UIAlertController(title: "Time Travel Successful!", message: "It is now \(presentTimeLabel.text)" ?? "You didn't quite make it...", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            self.present(alert, animated: true)
+            currentSpeed = 0
+        }
+    }
     
     // MARK: Navigation
 
@@ -73,14 +94,11 @@ class TimeCircuitsViewController: UIViewController {
 // MARK: - Extensions
 extension TimeCircuitsViewController: DatePickerDelegate {
     func destinationDateWasChosen(date: Date) {
-        destinationDate = date
+        destinationTimeLabel.text = dateFormatter.string(from: date)
     }
     
     
 }
 
 
-// MARK: - To implement
-/* Set the DatePickerViewController object's delegate as the TimeCircuitsViewController object in the prepare method
- 
- */
+

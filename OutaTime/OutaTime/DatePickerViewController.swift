@@ -34,7 +34,7 @@ class DatePickerViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func doneButtonTapped(_ sender: Any) {
+    @IBAction func doneButtonTapped(_ sender: UIBarButtonItem) {
         let destinationDate = datePicker.date
         delegate?.destinationDateWasChosen(date: destinationDate)
         dismiss(animated: true, completion: nil)
@@ -53,4 +53,7 @@ class DatePickerViewController: UIViewController {
 }
 
 // MARK: - Extensions
+
+// FIXME: Bar Button Items
+// Cancel and Done Button not displaying in simulator
 
