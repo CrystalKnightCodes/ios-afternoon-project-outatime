@@ -25,6 +25,8 @@ class TimeCircuitsViewController: UIViewController {
     
     var currentSpeed = 0
     let today = Date()
+    var destinationDate: Date = Date()
+ 
         
     
     // MARK: - Functions
@@ -40,10 +42,12 @@ class TimeCircuitsViewController: UIViewController {
     
     private func updateViews() {
         let todayString = string(from: today)
+        let destinationString = string(from: destinationDate)
         
         presentTimeLabel.text = todayString
         speedLabel.text = "\(currentSpeed) MPH"
         lastTimeDepartedLabel.text = "---   --   ----"
+        destinationTimeLabel.text = destinationString
         
         
     }
@@ -54,14 +58,29 @@ class TimeCircuitsViewController: UIViewController {
     }
  
     
-    /*
+    
     // MARK: Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+       if segue.identifier == "modalDestinationDatePickerSegue" {
+        guard let vc = segue.destination as? DatePickerViewController else { return }
+        vc.delegate = self
+        }
     }
-    */
-
 }
+
+// MARK: - Extensions
+extension TimeCircuitsViewController: DatePickerDelegate {
+    func destinationDateWasChosen(date: Date) {
+        destinationDate = date
+    }
+    
+    
+}
+
+
+// MARK: - To implement
+/* Set the DatePickerViewController object's delegate as the TimeCircuitsViewController object in the prepare method
+ 
+ */
